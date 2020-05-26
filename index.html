@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <div class="container">
+      <h1>Javascript Sudoku</h1>
+      <p>This is a demo for a Sudoku Generator/Solver.</p>
+      <div class="btn-div">
+        <button>New Board</button>
+        <button>Solve</button>
+      </div>
+      <div class="board-container">
+        <div class="grid-container big-border">
+          <div class="div1 grid-container big-border-bottom big-border-right">
+            <div class="div1 sml-border-bottom sml-border-right red">1</div>
+            <div class="div2 sml-border-bottom red">2</div>
+            <div class="div3 sml-border-bottom sml-border-left red">3</div>
+            <div class="div4 sml-border-right red">4</div>
+            <div class="div5 red">5</div>
+            <div class="div6 sml-border-left red">6</div>
+            <div class="div7 sml-border-top sml-border-right red">7</div>
+            <div class="div8 sml-border-top red">8</div>
+            <div class="div9 sml-border-top sml-border-left red">9</div> 
+          </div>
+          <div class="div2 grid-container big-border-bottom">
+            <div class="div1 sml-border-bottom sml-border-right red">1</div>
+            <div class="div2 sml-border-bottom red">2</div>
+            <div class="div3 sml-border-bottom sml-border-left red">3</div>
+            <div class="div4 sml-border-right red">4</div>
+            <div class="div5 red">5</div>
+            <div class="div6 sml-border-left red">6</div>
+            <div class="div7 sml-border-top sml-border-right red">7</div>
+            <div class="div8 sml-border-top red">8</div>
+            <div class="div9 sml-border-top sml-border-left red">9</div>
+          </div>
+          <div class="div3 grid-container big-border-bottom big-border-left">
+            <div class="div1 sml-border-bottom sml-border-right red">1</div>
+            <div class="div2 sml-border-bottom red">2</div>
+            <div class="div3 sml-border-bottom sml-border-left red">3</div>
+            <div class="div4 sml-border-right red">4</div>
+            <div class="div5 red">5</div>
+            <div class="div6 sml-border-left red">6</div>
+            <div class="div7 sml-border-top sml-border-right red">7</div>
+            <div class="div8 sml-border-top red">8</div>
+            <div class="div9 sml-border-top sml-border-left red">9</div>
+          </div>
+          <div class="div4 grid-container big-border-right">
+            <div class="div1 sml-border-bottom sml-border-right red">1</div>
+            <div class="div2 sml-border-bottom red">2</div>
+            <div class="div3 sml-border-bottom sml-border-left red">3</div>
+            <div class="div4 sml-border-right red">4</div>
+            <div class="div5 red">5</div>
+            <div class="div6 sml-border-left red">6</div>
+            <div class="div7 sml-border-top sml-border-right red">7</div>
+            <div class="div8 sml-border-top red">8</div>
+            <div class="div9 sml-border-top sml-border-left red">9</div>
+          </div>
+          <div class="div5 grid-container">
+            <div class="div1 sml-border-bottom sml-border-right red">1</div>
+            <div class="div2 sml-border-bottom red">2</div>
+            <div class="div3 sml-border-bottom sml-border-left red">3</div>
+            <div class="div4 sml-border-right red">4</div>
+            <div class="div5 red">5</div>
+            <div class="div6 sml-border-left red">6</div>
+            <div class="div7 sml-border-top sml-border-right red">7</div>
+            <div class="div8 sml-border-top red">8</div>
+            <div class="div9 sml-border-top sml-border-left red">9</div>
+          </div>
+          <div class="div6 grid-container big-border-left">
+            <div class="div1 sml-border-bottom sml-border-right red">1</div>
+            <div class="div2 sml-border-bottom red">2</div>
+            <div class="div3 sml-border-bottom sml-border-left red">3</div>
+            <div class="div4 sml-border-right red">4</div>
+            <div class="div5 red">5</div>
+            <div class="div6 sml-border-left red">6</div>
+            <div class="div7 sml-border-top sml-border-right red">7</div>
+            <div class="div8 sml-border-top red">8</div>
+            <div class="div9 sml-border-top sml-border-left red">9</div>
+          </div>
+          <div class="div7 grid-container big-border-top big-border-right">
+            <div class="div1 sml-border-bottom sml-border-right red">1</div>
+            <div class="div2 sml-border-bottom red">2</div>
+            <div class="div3 sml-border-bottom sml-border-left red">3</div>
+            <div class="div4 sml-border-right red">4</div>
+            <div class="div5 red">5</div>
+            <div class="div6 sml-border-left red">6</div>
+            <div class="div7 sml-border-top sml-border-right red">7</div>
+            <div class="div8 sml-border-top red">8</div>
+            <div class="div9 sml-border-top sml-border-left red">9</div>
+          </div>
+          <div class="div8 grid-container big-border-top">
+            <div class="div1 sml-border-bottom sml-border-right red">1</div>
+            <div class="div2 sml-border-bottom red">2</div>
+            <div class="div3 sml-border-bottom sml-border-left red">3</div>
+            <div class="div4 sml-border-right red">4</div>
+            <div class="div5 red">5</div>
+            <div class="div6 sml-border-left red">6</div>
+            <div class="div7 sml-border-top sml-border-right red">7</div>
+            <div class="div8 sml-border-top red">8</div>
+            <div class="div9 sml-border-top sml-border-left red">9</div>
+          </div>
+          <div class="div9 grid-container big-border-top big-border-left">
+            <div class="div1 sml-border-bottom sml-border-right red">1</div>
+            <div class="div2 sml-border-bottom red">2</div>
+            <div class="div3 sml-border-bottom sml-border-left red">3</div>
+            <div class="div4 sml-border-right red">4</div>
+            <div class="div5 red">5</div>
+            <div class="div6 sml-border-left red">6</div>
+            <div class="div7 sml-border-top sml-border-right red">7</div>
+            <div class="div8 sml-border-top red">8</div>
+            <div class="div9 sml-border-top sml-border-left red">9</div>
+          </div>
+
+        </div>
+      </div>
+      
+    </div>
+</html>
