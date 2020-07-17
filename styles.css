@@ -1,10 +1,66 @@
+:root {
+  --big-border: 6px solid black;
+  --sml-border: 2px solid black;
+  --red-color: #eb4034;
+  --active: #36d97a;
+  --blue: #2980b9;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 html,
 body {
   font-family: 'Roboto', sans-serif;
 }
 
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}
+
 .container {
-  max-width: 1200px;
+  width: 80%;
+  max-width: 700px;
+}
+
+.btn-div {
+  margin: 20px 0;
+}
+
+.btn {
+  background-color: #fff; /* Green */
+  border: 2px solid;
+  border-radius: 4px;
+  padding: 15px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.new-board {
+  margin-right: 10px;
+  border-color: var(--blue);
+}
+
+.new-board:hover {
+  background-color: var(--blue); /* Green */
+  color: #fff;
+}
+
+.solve {
+  border-color: var(--red-color);
+}
+
+.solve:hover {
+  background-color: var(--red-color); /* Green */
+  color: #fff;
 }
 
 .grid-container {
@@ -13,6 +69,10 @@ body {
   grid-template-rows: repeat(3, 1fr);
   grid-column-gap: 0px;
   grid-row-gap: 0px;
+}
+
+.board-size {
+  height: 700px;
 }
 
 .div1 {
@@ -43,42 +103,63 @@ body {
   grid-area: 3 / 3 / 4 / 4;
 }
 
+.cell {
+  font-size: 1.6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.cell-highlighted {
+  background-color: var(--active);
+}
+
+.cell-error {
+  background-color: var(--red-color);
+}
+
 .big-border {
-  border: 3px solid black;
+  border: var(--big-border);
 }
 
 .big-border-bottom {
-  border-bottom: 3px solid black;
+  border-bottom: var(--big-border);
 }
 
 .big-border-top {
-  border-top: 3px solid black;
+  border-top: var(--big-border);
 }
 
 .big-border-right {
-  border-right: 3px solid black;
+  border-right: var(--big-border);
 }
 
 .big-border-left {
-  border-left: 3px solid black;
+  border-left: var(--big-border);
 }
 
 .sml-border-bottom {
-  border-bottom: 1px solid black;
+  border-bottom: var(--sml-border);
 }
 
 .sml-border-top {
-  border-top: 1px solid black;
+  border-top: var(--sml-border);
 }
 
 .sml-border-right {
-  border-right: 1px solid black;
+  border-right: var(--sml-border);
 }
 
 .sml-border-left {
-  border-left: 1px solid black;
+  border-left: var(--sml-border);
 }
 
-.red {
-  background-color: #eb4034;
+.msg-div {
+  display: flex;
+  justify-content: center;
+}
+
+.error-msg {
+  color: var(--red-color);
 }
