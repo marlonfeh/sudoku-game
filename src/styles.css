@@ -6,6 +6,10 @@
   --near-white: #eeeeee;
 }
 
+#container {
+  max-width: 600px;
+}
+
 .new-btn:hover {
   color: white;
   background-color: var(--blue);
