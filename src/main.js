@@ -1,6 +1,6 @@
 import tachyons from 'tachyons';
 import { log1, toggleHighlightedCell } from './modules/view.js';
-import { log2 } from './modules/model.js';
+import { generateBoard } from './modules/model.js';
 
 /* --------------------Variables-------------------- */
 const newGameBtn = document.getElementById('new-game');
@@ -45,7 +45,9 @@ game.addEventListener(
 
 /* --------------------Tests-------------------- */
 
-log1('3');
-log2();
+//print_board(veryeasyGameArr);
+generateBoard();
 
-console.log('It works');
+/* --------------------Annotations-------------------- */
+
+//https://medium.com/javascript-in-plain-english/solve-a-sudoku-using-javascript-de456e8c34a5
