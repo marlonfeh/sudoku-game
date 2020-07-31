@@ -398,6 +398,10 @@ function countZerosOverall(board) {
   return zeros;
 }
 
+function getBoard() {
+  return game;
+}
+
 function getRandomNumber(range) {
   return Math.floor(Math.random() * range);
 }
@@ -430,57 +434,4 @@ function deleteElementFromArr(arr, num) {
 
 /* --------------------Export-------------------- */
 
-export { generateBoard };
-
-/*
-function fillInNumber(board, r, c) {
-  let used = [
-    ...get_row(game, r),
-    ...get_column(game, c),
-    ...get_square(game, square_coordinates[r][c]),
-  ];
-
-  let possibilities = [];
-  for (let p = 1; p <= 9; p++) {
-    if (!used.includes(p)) {
-      possibilities.push(p);
-    }
-  }
-
-  console.log(possibilities, 'possibilities');
-
-  let number = getRandomNumberArr(possibilities);
-
-  console.log('board', r, c, 'number', number);
-
-  if (typeof number !== 'undefined') {
-    board[r][c] = number;
-
-    if (r <= 8 && c < 8) {
-      c += 1;
-      console.log('Next column');
-      fillInNumber(board, r, c);
-    } else if (r < 8 && c === 8) {
-      r += 1;
-      c = 0;
-      console.log('Next row');
-      fillInNumber(board, r, c);
-    } else {
-      console.log('Finished Board');
-      return;
-    }
-  } else {
-    if (c > 0) {
-      c -= 1;
-      console.log('Recursion Column');
-      //console.log(r, c, 'c2', c2);
-      //fillInNumber(board, r, c);
-    } else {
-      r -= 1;
-      console.log('Recursion Row');
-      //fillInNumber(board, r, c);
-    }
-  }
-}
-
-*/
+export { generateBoard, getBoard, solve };

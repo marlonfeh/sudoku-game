@@ -24,7 +24,7 @@ function toggleHighlightedCell(element) {
 
   if (highlightedCells > 0) return;
 
-  if (element.classList.contains('cell-empty')) return;
+  if (element.classList.contains('cell-given')) return;
 
   toggleClass(element, 'cell-highlighted');
 }
@@ -34,15 +34,20 @@ function toggleClass(element, cssClass) {
 }
 
 function viewNewBoard(board) {
-  clearStyles();
+  clearStylesAll();
   setValues(board);
   setStyles(board);
 }
 
-function clearStyles() {
-  let cellGiven = Array.from(document.querySelectorAll('div.cell-given'));
-  let cellEmpty = Array.from(document.querySelectorAll('div.cell-empty'));
-  let cellError = Array.from(document.querySelectorAll('div.cell-error'));
+function viewSolvedBoard(board) {
+  setValues(board);
+  clearStylesAll();
+}
+
+function clearStylesAll() {
+  let cellGiven = Array.from(document.querySelectorAll('.cell-given'));
+  let cellEmpty = Array.from(document.querySelectorAll('.cell-empty'));
+  let cellError = Array.from(document.querySelectorAll('.cell-error'));
 
   cellGiven.forEach((e) => {
     removeClassName(e, 'cell-given');
@@ -94,4 +99,4 @@ function setStyles(board) {
 
 /* --------------------Export-------------------- */
 
-export { viewNewBoard, toggleHighlightedCell };
+export { viewNewBoard, toggleHighlightedCell, viewSolvedBoard };

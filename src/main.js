@@ -1,11 +1,15 @@
 import tachyons from 'tachyons';
-import { toggleHighlightedCell, viewNewBoard } from './modules/view.js';
-import { generateBoard } from './modules/model.js';
+import {
+  toggleHighlightedCell,
+  viewNewBoard,
+  viewSolvedBoard,
+} from './modules/view.js';
+import { generateBoard, getBoard, solve } from './modules/model.js';
 
 /* --------------------Variables-------------------- */
 const newGameBtn = document.getElementById('new-game');
 const solveGameBtn = document.getElementById('solve-game');
-const game = document.getElementById('game');
+const gameField = document.getElementById('game');
 
 /* --------------------Event Listeners-------------------- */
 
@@ -14,15 +18,16 @@ newGameBtn.addEventListener('click', (e) => {
   console.log('new game!');
   let puzzle = generateBoard();
   viewNewBoard(puzzle);
-  //console.log(puzzle);
 });
 
 solveGameBtn.addEventListener('click', (e) => {
   console.log('solve game!');
-  solveGame();
+  let puzzle = getBoard();
+  puzzle = solve(puzzle);
+  viewSolvedBoard(puzzle);
 });
 
-game.addEventListener(
+gameField.addEventListener(
   'click',
   (e) => {
     const element = e.target;
