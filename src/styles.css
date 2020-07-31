@@ -76,6 +76,6 @@
   background-color: var(--light-red);
 }
 
-.cell-given {
+.cell-empty {
   background-color: var(--near-white);
 }

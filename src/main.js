@@ -1,5 +1,5 @@
 import tachyons from 'tachyons';
-import { log1, toggleHighlightedCell } from './modules/view.js';
+import { toggleHighlightedCell, viewNewBoard } from './modules/view.js';
 import { generateBoard } from './modules/model.js';
 
 /* --------------------Variables-------------------- */
@@ -12,7 +12,9 @@ const game = document.getElementById('game');
 // Listen to all clicks on div.game
 newGameBtn.addEventListener('click', (e) => {
   console.log('new game!');
-  generateBoard();
+  let puzzle = generateBoard();
+  viewNewBoard(puzzle);
+  //console.log(puzzle);
 });
 
 solveGameBtn.addEventListener('click', (e) => {
@@ -45,9 +47,6 @@ game.addEventListener(
 );
 
 /* --------------------Tests-------------------- */
-
-//print_board(veryeasyGameArr);
-generateBoard();
 
 /* --------------------Annotations-------------------- */
 

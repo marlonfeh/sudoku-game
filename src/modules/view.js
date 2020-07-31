@@ -1,5 +1,17 @@
 /* --------------------Variables-------------------- */
 
+let IDs = {
+  0: 'one',
+  1: 'two',
+  2: 'three',
+  3: 'four',
+  4: 'five',
+  5: 'six',
+  6: 'seven',
+  7: 'eight',
+  8: 'nine',
+};
+
 /* --------------------Functions-------------------- */
 
 function toggleHighlightedCell(element) {
@@ -12,7 +24,7 @@ function toggleHighlightedCell(element) {
 
   if (highlightedCells > 0) return;
 
-  if (element.classList.contains('cell-given')) return;
+  if (element.classList.contains('cell-empty')) return;
 
   toggleClass(element, 'cell-highlighted');
 }
@@ -21,15 +33,65 @@ function toggleClass(element, cssClass) {
   element.classList.toggle(cssClass);
 }
 
-/* --------------------Tests-------------------- */
-
-const name = 'Marlon';
-
-function log1(logItem) {
-  console.log(logItem);
-  console.log(name);
+function viewNewBoard(board) {
+  clearStyles();
+  setValues(board);
+  setStyles(board);
 }
+
+function clearStyles() {
+  let cellGiven = Array.from(document.querySelectorAll('div.cell-given'));
+  let cellEmpty = Array.from(document.querySelectorAll('div.cell-empty'));
+  let cellError = Array.from(document.querySelectorAll('div.cell-error'));
+
+  cellGiven.forEach((e) => {
+    removeClassName(e, 'cell-given');
+  });
+  cellEmpty.forEach((e) => {
+    removeClassName(e, 'cell-empty');
+  });
+  cellError.forEach((e) => {
+    removeClassName(e, 'cell-error');
+  });
+}
+
+function removeClassName(element, className) {
+  element.classList.remove(className);
+}
+
+function setValues(board) {
+  for (let r = 0; r < 9; r++) {
+    for (let c = 0; c < 9; c++) {
+      //Get ID
+      let idRaw = [IDs[r], '_', IDs[c]];
+      let id = idRaw.join('');
+
+      if (board[r][c] > 0) {
+        document.getElementById(id).innerHTML = board[r][c];
+        document.getElementById(id).classList.toggle('cell-given');
+      } else {
+        document.getElementById(id).innerHTML = '';
+      }
+    }
+  }
+}
+
+function setStyles(board) {
+  for (let r = 0; r < 9; r++) {
+    for (let c = 0; c < 9; c++) {
+      //Get ID
+      let idRaw = [IDs[r], '_', IDs[c]];
+      let id = idRaw.join('');
+
+      if (board[r][c] === 0) {
+        document.getElementById(id).classList.toggle('cell-empty');
+      }
+    }
+  }
+}
+
+/* --------------------Tests-------------------- */
 
 /* --------------------Export-------------------- */
 
-export { log1, name, toggleHighlightedCell };
+export { viewNewBoard, toggleHighlightedCell };

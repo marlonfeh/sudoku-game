@@ -257,26 +257,34 @@ function generateBoard() {
 
   printBoard(game);
 
-  //Build in parameter to choose difficulty
+  //!!!Build in parameter to choose difficulty
   let board = game;
-  let difficulty = 10;
+  let difficulty = 30;
 
+  //Set random elements for new board
   board = setRandomElements(board);
 
   console.log('Basis board');
   printBoard(board);
 
-  //Generate new board
+  //Solve new board
   board = solve(board);
 
-  console.log('complete board');
-  printBoard(board);
+  //console.log('complete board');
+  //printBoard(board);
 
   //Delete specific amount of numbers
   board = removeNumbersFromBoard(board, difficulty);
 
-  //console.log('finished board');
-  //printBoard(board);
+  console.log('finished board');
+  printBoard(board);
+
+  game = board;
+
+  console.log('Game');
+  printBoard(game);
+
+  return game;
 }
 
 function setRandomElements(board) {
@@ -339,8 +347,6 @@ function diagonal(board) {
       ...get_square(board, square_coordinates[i][i]),
     ];
 
-    //console.log('board', i, i, 'used', used);
-
     let possibilities = [];
     for (let p = 1; p <= 9; p++) {
       if (!used.includes(p)) {
@@ -348,16 +354,12 @@ function diagonal(board) {
       }
     }
 
-    //console.log(possibilities, 'possibilities');
-
     if (possibilities.length > 0) {
       board[i][i] = getRandomNumberArr(possibilities);
     } else {
       console.log('board', i, i, 'is 0');
       diagonal(board);
     }
-
-    //console.log('board', i, i, board[i][i]);
   }
   return board;
 }
@@ -369,7 +371,8 @@ function printBoard(board) {
 }
 
 function removeNumbersFromBoard(board, difficulty) {
-  for (let i = 1; i <= difficulty; i++) {
+  let i = 0;
+  while (i < difficulty) {
     const arr = [0, 1, 2, 3, 4, 5, 6, 7, 8];
     let r = getRandomNumberArr(arr);
     let c = getRandomNumberArr(arr);
@@ -377,11 +380,22 @@ function removeNumbersFromBoard(board, difficulty) {
     if (board[r][c] !== 0) {
       board[r][c] = 0;
     }
-    //check if already empty
-    //safe coordinates
-
-    return board;
+    i = countZerosOverall(board);
   }
+
+  return board;
+}
+
+function countZerosOverall(board) {
+  let zeros = 0;
+  for (let r = 0; r < 9; r++) {
+    for (let c = 0; c < 9; c++) {
+      if (board[r][c] === 0) {
+        zeros += 1;
+      }
+    }
+  }
+  return zeros;
 }
 
 function getRandomNumber(range) {
