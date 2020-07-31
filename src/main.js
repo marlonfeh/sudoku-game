@@ -12,6 +12,7 @@ const game = document.getElementById('game');
 // Listen to all clicks on div.game
 newGameBtn.addEventListener('click', (e) => {
   console.log('new game!');
+  generateBoard();
 });
 
 solveGameBtn.addEventListener('click', (e) => {

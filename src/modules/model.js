@@ -1,6 +1,8 @@
+//This game utilizes parts of the algorithm of davelms which can be checked out here: https://github.com/davelms/medium-articles/blob/master/sudoku-solver/sudoku.js
+
 /* --------------------Variables-------------------- */
 
-const game = [
+let game = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -246,32 +248,147 @@ function solve(board) {
 }
 
 function generateBoard() {
-  //Build in parameter to choose difficulty
+  //Reset game
+  for (let k = 0; k < 9; k++) {
+    for (let n = 0; n < 9; n++) {
+      game[k][n] = 0;
+    }
+  }
 
+  printBoard(game);
+
+  //Build in parameter to choose difficulty
+  let board = game;
   let difficulty = 10;
 
+  board = setRandomElements(board);
+
+  console.log('Basis board');
+  printBoard(board);
+
   //Generate new board
-  let board = solve(game);
+  board = solve(board);
+
+  console.log('complete board');
+  printBoard(board);
 
   //Delete specific amount of numbers
-  test(board, difficulty);
+  board = removeNumbersFromBoard(board, difficulty);
+
+  //console.log('finished board');
+  //printBoard(board);
 }
 
-function test(board, difficulty) {
-  for (let i = 1; i < difficulty; i++) {
+function setRandomElements(board) {
+  let numbersOne = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+  //Get Random Values for Row 1
+  for (let i = 0; i < 9; i++) {
+    board[0][i] = getRandomNumberArr(numbersOne);
+    numbersOne = deleteElementFromArr(numbersOne, board[0][i]);
+    console.log('numbers', numbersOne);
+  }
+
+  //Get Random Values for Row 2
+  board = row2(board);
+
+  //Get Random values for the diagonal
+  board = diagonal(board);
+
+  return board;
+}
+
+function row2(board) {
+  for (let i = 0; i < 9; i++) {
+    board[1][i] = 0;
+  }
+
+  for (let i = 0; i < 9; i++) {
+    let used = [
+      ...get_row(board, 1),
+      ...get_column(board, i),
+      ...get_square(board, square_coordinates[1][i]),
+    ];
+
+    let possibilities = [];
+    for (let p = 1; p <= 9; p++) {
+      if (!used.includes(p)) {
+        possibilities.push(p);
+      }
+    }
+
+    if (possibilities.length > 0) {
+      board[1][i] = getRandomNumberArr(possibilities);
+    } else {
+      console.log('board', 1, i, 'is 0');
+      row2(board);
+    }
+  }
+  return board;
+}
+
+function diagonal(board) {
+  for (let i = 2; i < 9; i++) {
+    board[i][i] = 0;
+  }
+
+  for (let i = 2; i < 9; i++) {
+    let used = [
+      ...get_row(board, i),
+      ...get_column(board, i),
+      ...get_square(board, square_coordinates[i][i]),
+    ];
+
+    //console.log('board', i, i, 'used', used);
+
+    let possibilities = [];
+    for (let p = 1; p <= 9; p++) {
+      if (!used.includes(p)) {
+        possibilities.push(p);
+      }
+    }
+
+    //console.log(possibilities, 'possibilities');
+
+    if (possibilities.length > 0) {
+      board[i][i] = getRandomNumberArr(possibilities);
+    } else {
+      console.log('board', i, i, 'is 0');
+      diagonal(board);
+    }
+
+    //console.log('board', i, i, board[i][i]);
+  }
+  return board;
+}
+
+function printBoard(board) {
+  for (let k = 0; k < 9; k++) {
+    console.log(board[k]);
+  }
+}
+
+function removeNumbersFromBoard(board, difficulty) {
+  for (let i = 1; i <= difficulty; i++) {
     const arr = [0, 1, 2, 3, 4, 5, 6, 7, 8];
-    let r = getRandomNumber(arr);
-    let c = getRandomNumber(arr);
-    console.log(board[r][c]);
+    let r = getRandomNumberArr(arr);
+    let c = getRandomNumberArr(arr);
+    //console.log(board[r][c]);
     if (board[r][c] !== 0) {
       board[r][c] = 0;
     }
     //check if already empty
     //safe coordinates
+
+    return board;
   }
 }
 
-function getRandomNumber(arr) {
+function getRandomNumber(range) {
+  return Math.floor(Math.random() * range);
+}
+
+function getRandomNumberArr(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
@@ -318,7 +435,7 @@ function fillInNumber(board, r, c) {
 
   console.log(possibilities, 'possibilities');
 
-  let number = getRandomNumber(possibilities);
+  let number = getRandomNumberArr(possibilities);
 
   console.log('board', r, c, 'number', number);
 
