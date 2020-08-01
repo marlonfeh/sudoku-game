@@ -2,6 +2,18 @@
 
 /* --------------------Variables-------------------- */
 
+const square_coordinates = [
+  [1, 1, 1, 2, 2, 2, 3, 3, 3],
+  [1, 1, 1, 2, 2, 2, 3, 3, 3],
+  [1, 1, 1, 2, 2, 2, 3, 3, 3],
+  [4, 4, 4, 5, 5, 5, 6, 6, 6],
+  [4, 4, 4, 5, 5, 5, 6, 6, 6],
+  [4, 4, 4, 5, 5, 5, 6, 6, 6],
+  [7, 7, 7, 8, 8, 8, 9, 9, 9],
+  [7, 7, 7, 8, 8, 8, 9, 9, 9],
+  [7, 7, 7, 8, 8, 8, 9, 9, 9],
+];
+
 let game = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -14,17 +26,19 @@ let game = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0],
 ];
 
-const square_coordinates = [
-  [1, 1, 1, 2, 2, 2, 3, 3, 3],
-  [1, 1, 1, 2, 2, 2, 3, 3, 3],
-  [1, 1, 1, 2, 2, 2, 3, 3, 3],
-  [4, 4, 4, 5, 5, 5, 6, 6, 6],
-  [4, 4, 4, 5, 5, 5, 6, 6, 6],
-  [4, 4, 4, 5, 5, 5, 6, 6, 6],
-  [7, 7, 7, 8, 8, 8, 9, 9, 9],
-  [7, 7, 7, 8, 8, 8, 9, 9, 9],
-  [7, 7, 7, 8, 8, 8, 9, 9, 9],
+let solvedBoardTemplate = [
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0],
 ];
+
+let IDs = [[], []];
 
 /* --------------------Functions-------------------- */
 
@@ -252,32 +266,24 @@ function generateBoard() {
   for (let k = 0; k < 9; k++) {
     for (let n = 0; n < 9; n++) {
       game[k][n] = 0;
+      solvedBoardTemplate[k][n] = 0;
     }
   }
-
-  printBoard(game);
+  IDs = [[], []];
 
   //!!!Build in parameter to choose difficulty
   let board = game;
-  let difficulty = 30;
+  let difficulty = 1;
 
   //Set random elements for new board
   board = setRandomElements(board);
-
-  console.log('Basis board');
-  printBoard(board);
+  solvedBoardTemplate = board;
 
   //Solve new board
   board = solve(board);
 
-  //console.log('complete board');
-  //printBoard(board);
-
   //Delete specific amount of numbers
   board = removeNumbersFromBoard(board, difficulty);
-
-  console.log('finished board');
-  printBoard(board);
 
   game = board;
 
@@ -398,8 +404,13 @@ function countZerosOverall(board) {
   return zeros;
 }
 
-function getBoard() {
+function getCurrentBoard() {
   return game;
+}
+
+function getSolvedBoard() {
+  let solvedBoard = solve(solvedBoardTemplate);
+  return solvedBoard;
 }
 
 function getRandomNumber(range) {
@@ -419,6 +430,47 @@ function deleteElementFromArr(arr, num) {
   return arr;
 }
 
+function insertNewNumber(modelID, num) {
+  num = Number(num);
+  let r = modelID[0];
+  let c = modelID[1];
+  game[r][c] = num;
+}
+
+function saveID(modelID) {
+  IDs[0].push(modelID[0]);
+  IDs[1].push(modelID[1]);
+}
+
+function isValid() {
+  //Generiere possibilities für alle eingetragenen nummern
+  //wenn 0, dann error
+  console.log(IDs[0].length);
+  console.log(IDs);
+
+  for (let k = 0; k < IDs[0].length; k++) {
+    let r = IDs[0][k];
+    let c = IDs[1][k];
+    let used = [
+      ...get_row(board, r),
+      ...get_column(board, c),
+      ...get_square(board, square_coordinates[r][c]),
+    ];
+
+    let possibilities = [];
+    for (let p = 1; p <= 9; p++) {
+      if (!used.includes(p)) {
+        possibilities.push(p);
+      }
+    }
+    if (possibilities.length === 0) {
+      //ADD TO ARRAY
+    }
+  }
+
+  //return true or false
+}
+
 //If all Fields filled run checkSolved Functions and highlight any errors. If there arent any, highlight every cell in green
 
 /*
@@ -434,4 +486,4 @@ function deleteElementFromArr(arr, num) {
 
 /* --------------------Export-------------------- */
 
-export { generateBoard, getBoard, solve };
+export { generateBoard, getSolvedBoard, isValid, insertNewNumber, saveID };

@@ -68,12 +68,12 @@
   justify-content: center;
 }
 
-.cell-error {
-  background-color: var(--light-red);
-}
-
 .cell-empty {
   background-color: var(--near-white);
+}
+
+.cell-error {
+  background-color: var(--light-red);
 }
 
 .cell-highlighted {

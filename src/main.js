@@ -3,13 +3,26 @@ import {
   toggleHighlightedCell,
   viewNewBoard,
   viewSolvedBoard,
+  isActive,
+  displayNumber,
+  getActive,
+  getModelID,
+  countEmptyCells,
 } from './modules/view.js';
-import { generateBoard, getBoard, solve } from './modules/model.js';
+import {
+  generateBoard,
+  getSolvedBoard,
+  isValid,
+  insertNewNumber,
+  saveID,
+} from './modules/model.js';
 
 /* --------------------Variables-------------------- */
+
 const newGameBtn = document.getElementById('new-game');
 const solveGameBtn = document.getElementById('solve-game');
 const gameField = document.getElementById('game');
+let IDs = [];
 
 /* --------------------Event Listeners-------------------- */
 
@@ -22,8 +35,7 @@ newGameBtn.addEventListener('click', (e) => {
 
 solveGameBtn.addEventListener('click', (e) => {
   console.log('solve game!');
-  let puzzle = getBoard();
-  puzzle = solve(puzzle);
+  let puzzle = getSolvedBoard();
   viewSolvedBoard(puzzle);
 });
 
@@ -50,6 +62,42 @@ gameField.addEventListener(
   },
   false
 );
+
+document.addEventListener('keydown', function (e) {
+  //Check for active div
+  let activeDiv = isActive();
+  if (activeDiv !== true) return;
+
+  //Check for number
+  if (
+    (e.keyCode >= 48 && e.keyCode <= 57) ||
+    (e.keyCode >= 96 && e.keyCode <= 105)
+  ) {
+    //Get relevant Element and model ID
+    let element = getActive();
+    let modelID = getModelID(element);
+
+    //Get Number into model
+    insertNewNumber(modelID, e.key);
+    saveID(modelID);
+
+    console.log(modelID);
+
+    //Display Number in view
+    displayNumber(element, e.key);
+
+    //check validity if model is completly filled
+    let emptyCells = countEmptyCells();
+
+    isValid();
+
+    if (emptyCells === 0) {
+      isValid();
+    }
+
+    //let valid = isValid(modelID, e.key);
+  }
+});
 
 /* --------------------Tests-------------------- */
 
