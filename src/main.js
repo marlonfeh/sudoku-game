@@ -8,13 +8,16 @@ import {
   getActive,
   getModelID,
   countEmptyCells,
+  displayErrors,
 } from './modules/view.js';
 import {
   generateBoard,
+  getCurrentBoard,
   getSolvedBoard,
   isValid,
   insertNewNumber,
   saveID,
+  deleteID,
 } from './modules/model.js';
 
 /* --------------------Variables-------------------- */
@@ -22,7 +25,6 @@ import {
 const newGameBtn = document.getElementById('new-game');
 const solveGameBtn = document.getElementById('solve-game');
 const gameField = document.getElementById('game');
-let IDs = [];
 
 /* --------------------Event Listeners-------------------- */
 
@@ -53,12 +55,6 @@ gameField.addEventListener(
     if (element.classList.contains('cell-highlighted')) {
       console.log('active');
     }
-
-    //Accept keyboard entry (if number)
-
-    //Update board
-
-    //Display entry on board
   },
   false
 );
@@ -79,7 +75,12 @@ document.addEventListener('keydown', function (e) {
 
     //Get Number into model
     insertNewNumber(modelID, e.key);
-    saveID(modelID);
+
+    if (e.key !== '0') {
+      saveID(modelID);
+    } else {
+      deleteID(modelID);
+    }
 
     console.log(modelID);
 
@@ -89,13 +90,15 @@ document.addEventListener('keydown', function (e) {
     //check validity if model is completly filled
     let emptyCells = countEmptyCells();
 
-    isValid();
+    console.log('Current Board', getCurrentBoard());
+
+    let notValid = [];
 
     if (emptyCells === 0) {
-      isValid();
+      notValid = isValid();
     }
-
-    //let valid = isValid(modelID, e.key);
+    if (notValid.length === 0) return;
+    displayErrors(notValid);
   }
 });
 

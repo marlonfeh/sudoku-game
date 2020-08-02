@@ -273,7 +273,7 @@ function generateBoard() {
 
   //!!!Build in parameter to choose difficulty
   let board = game;
-  let difficulty = 1;
+  let difficulty = 10;
 
   //Set random elements for new board
   board = setRandomElements(board);
@@ -299,7 +299,7 @@ function setRandomElements(board) {
   //Get Random Values for Row 1
   for (let i = 0; i < 9; i++) {
     board[0][i] = getRandomNumberArr(numbersOne);
-    numbersOne = deleteElementFromArr(numbersOne, board[0][i]);
+    numbersOne = deleteElementFromArrByValue(numbersOne, board[0][i]);
     console.log('numbers', numbersOne);
   }
 
@@ -421,12 +421,17 @@ function getRandomNumberArr(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
-function deleteElementFromArr(arr, num) {
+function deleteElementFromArrByValue(arr, num) {
   for (var i = 0; i < arr.length; i++) {
     if (arr[i] === num) {
       arr.splice(i, 1);
     }
   }
+  return arr;
+}
+
+function deleteElementFromArrByIndex(arr, index) {
+  arr.splice(index, 1);
   return arr;
 }
 
@@ -440,6 +445,17 @@ function insertNewNumber(modelID, num) {
 function saveID(modelID) {
   IDs[0].push(modelID[0]);
   IDs[1].push(modelID[1]);
+  console.log(IDs);
+}
+
+function deleteID(modelID) {
+  for (let k = 0; k < IDs.length; k++) {
+    if (IDs[0][k] === modelID[0] && IDs[1][k] === modelID[1]) {
+      IDs[0] = deleteElementFromArrByIndex(IDs[0], k);
+      IDs[1] = deleteElementFromArrByIndex(IDs[1], k);
+    }
+    console.log(IDs);
+  }
 }
 
 function isValid() {
@@ -448,26 +464,22 @@ function isValid() {
   console.log(IDs[0].length);
   console.log(IDs);
 
+  let notValid = [[], []];
+
+  let solvedBoard = getSolvedBoard(solvedBoardTemplate);
+  console.log(solvedBoard);
+
   for (let k = 0; k < IDs[0].length; k++) {
     let r = IDs[0][k];
     let c = IDs[1][k];
-    let used = [
-      ...get_row(board, r),
-      ...get_column(board, c),
-      ...get_square(board, square_coordinates[r][c]),
-    ];
 
-    let possibilities = [];
-    for (let p = 1; p <= 9; p++) {
-      if (!used.includes(p)) {
-        possibilities.push(p);
-      }
-    }
-    if (possibilities.length === 0) {
-      //ADD TO ARRAY
+    if (game[r][c] !== solvedBoard[r][c]) {
+      console.log('error');
+      notValid[0].push(r);
+      notValid[1].push(c);
     }
   }
-
+  return notValid;
   //return true or false
 }
 
@@ -486,4 +498,12 @@ function isValid() {
 
 /* --------------------Export-------------------- */
 
-export { generateBoard, getSolvedBoard, isValid, insertNewNumber, saveID };
+export {
+  generateBoard,
+  getCurrentBoard,
+  getSolvedBoard,
+  isValid,
+  insertNewNumber,
+  saveID,
+  deleteID,
+};

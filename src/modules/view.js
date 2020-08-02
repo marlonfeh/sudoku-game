@@ -149,6 +149,16 @@ function countEmptyCells() {
   return emptyDivs.length;
 }
 
+function displayErrors(errorIDs) {
+  for (let k = 0; k < errorIDs[0].length; k++) {
+    let row = IDs[errorIDs[0][k]];
+    let column = IDs[errorIDs[1][k]];
+    let idRaw = [row, '_', column];
+    let id = idRaw.join('');
+    document.getElementById(id).classList.toggle('cell-error');
+  }
+}
+
 /* --------------------Tests-------------------- */
 
 /* --------------------Export-------------------- */
@@ -162,4 +172,5 @@ export {
   getActive,
   getModelID,
   countEmptyCells,
+  displayErrors,
 };
