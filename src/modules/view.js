@@ -15,22 +15,36 @@ let IDs = {
 /* --------------------Functions-------------------- */
 
 function toggleHighlightedCell(element) {
-  const highlightedCells = document.querySelectorAll('.cell-highlighted')
+  const highlightedCells = document.querySelectorAll('.cell-highlighted');
+  const highlightedCellsLength = document.querySelectorAll('.cell-highlighted')
     .length;
+
+  console.log(highlightedCells[0]);
 
   if (element.classList.contains('cell-highlighted')) {
     toggleClass(element, 'cell-highlighted');
+    return;
   }
 
-  if (highlightedCells > 0) return;
-
   if (element.classList.contains('cell-given')) return;
+
+  if (highlightedCellsLength > 0) {
+    removeClassName(highlightedCells[0], 'cell-highlighted');
+  }
 
   toggleClass(element, 'cell-highlighted');
 }
 
 function toggleClass(element, cssClass) {
   element.classList.toggle(cssClass);
+}
+
+function addClassName(element, className) {
+  element.classList.add(className);
+}
+
+function removeClassName(element, className) {
+  element.classList.remove(className);
 }
 
 function viewNewBoard(board) {
@@ -62,14 +76,6 @@ function clearStylesAll() {
   cellError.forEach((e) => {
     removeClassName(e, 'cell-error');
   });
-}
-
-function addClassName(element, className) {
-  element.classList.add(className);
-}
-
-function removeClassName(element, className) {
-  element.classList.remove(className);
 }
 
 function setValues(board) {
@@ -150,6 +156,7 @@ function countEmptyCells() {
 }
 
 function displayErrors(errorIDs) {
+  clearStylesAll();
   for (let k = 0; k < errorIDs[0].length; k++) {
     let row = IDs[errorIDs[0][k]];
     let column = IDs[errorIDs[1][k]];
@@ -157,6 +164,10 @@ function displayErrors(errorIDs) {
     let id = idRaw.join('');
     document.getElementById(id).classList.toggle('cell-error');
   }
+}
+
+function getErrors() {
+  return Array.from(document.querySelectorAll('.cell-error'));
 }
 
 /* --------------------Tests-------------------- */
@@ -173,4 +184,5 @@ export {
   getModelID,
   countEmptyCells,
   displayErrors,
+  getErrors,
 };

@@ -273,7 +273,7 @@ function generateBoard() {
 
   //!!!Build in parameter to choose difficulty
   let board = game;
-  let difficulty = 10;
+  let difficulty = 3;
 
   //Set random elements for new board
   board = setRandomElements(board);

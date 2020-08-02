@@ -9,6 +9,7 @@ import {
   getModelID,
   countEmptyCells,
   displayErrors,
+  getErrors,
 } from './modules/view.js';
 import {
   generateBoard,
@@ -45,16 +46,10 @@ gameField.addEventListener(
   'click',
   (e) => {
     const element = e.target;
-    //let elementClassList = Array.from(element.classList);
 
-    //console.log('element', element);
+    if (!element.classList.contains('cell')) return;
 
     toggleHighlightedCell(element);
-
-    //if cell is highlighted proceed
-    if (element.classList.contains('cell-highlighted')) {
-      console.log('active');
-    }
   },
   false
 );
@@ -62,6 +57,7 @@ gameField.addEventListener(
 document.addEventListener('keydown', function (e) {
   //Check for active div
   let activeDiv = isActive();
+
   if (activeDiv !== true) return;
 
   //Check for number
