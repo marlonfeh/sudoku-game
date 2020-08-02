@@ -272,7 +272,7 @@ function generateBoard() {
   IDs = [[], []];
 
   let board = game;
-  let difficulty = 2;
+  let difficulty = 35;
 
   //Set random elements for new board
   board = setRandomElements(board);
@@ -397,10 +397,6 @@ function countZerosOverall(board) {
   return zeros;
 }
 
-function getCurrentBoard() {
-  return game;
-}
-
 function getSolvedBoard() {
   let solvedBoard = solve(solvedBoardTemplate);
   return solvedBoard;
@@ -451,10 +447,6 @@ function deleteID(modelID) {
   }
 }
 
-function resetID() {
-  IDs = [[], []];
-}
-
 function isValid() {
   let notValid = [[], []];
 
@@ -472,7 +464,7 @@ function isValid() {
       notValid[1].push(c);
     }
   }
-  //IDs = [[], []];
+
   console.log(notValid);
   return notValid;
 }
@@ -492,11 +484,9 @@ function isValid() {
 
 export {
   generateBoard,
-  getCurrentBoard,
   getSolvedBoard,
   isValid,
   insertNewNumber,
   saveID,
   deleteID,
-  resetID,
 };

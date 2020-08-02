@@ -14,13 +14,11 @@ import {
 } from './modules/view.js';
 import {
   generateBoard,
-  getCurrentBoard,
   getSolvedBoard,
   isValid,
   insertNewNumber,
   saveID,
   deleteID,
-  resetID,
 } from './modules/model.js';
 
 /* --------------------Variables-------------------- */
@@ -28,6 +26,13 @@ import {
 const newGameBtn = document.getElementById('new-game');
 const solveGameBtn = document.getElementById('solve-game');
 const gameField = document.getElementById('game');
+
+/* --------------------Functions-------------------- */
+
+function init() {
+  let puzzle = generateBoard();
+  viewNewBoard(puzzle);
+}
 
 /* --------------------Event Listeners-------------------- */
 
@@ -99,14 +104,14 @@ document.addEventListener('keydown', function (e) {
     }
 
     let errorCount = getErrors();
-    console.log(errorCount);
-    console.log(emptyCells);
 
     if (emptyCells === 0 && errorCount === 0) {
       lockField();
     }
   }
 });
+
+init();
 
 /* --------------------Tests-------------------- */
 
