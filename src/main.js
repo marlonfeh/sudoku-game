@@ -10,6 +10,7 @@ import {
   countEmptyCells,
   displayErrors,
   getErrors,
+  lockField,
 } from './modules/view.js';
 import {
   generateBoard,
@@ -19,6 +20,7 @@ import {
   insertNewNumber,
   saveID,
   deleteID,
+  resetID,
 } from './modules/model.js';
 
 /* --------------------Variables-------------------- */
@@ -78,23 +80,31 @@ document.addEventListener('keydown', function (e) {
       deleteID(modelID);
     }
 
-    console.log(modelID);
-
     //Display Number in view
     displayNumber(element, e.key);
 
     //check validity if model is completly filled
     let emptyCells = countEmptyCells();
 
-    console.log('Current Board', getCurrentBoard());
-
     let notValid = [];
+
+    //Check IDs in model.js
 
     if (emptyCells === 0) {
       notValid = isValid();
     }
-    if (notValid.length === 0) return;
-    displayErrors(notValid);
+
+    if (notValid.length !== 0) {
+      displayErrors(notValid);
+    }
+
+    let errorCount = getErrors();
+    console.log(errorCount);
+    console.log(emptyCells);
+
+    if (emptyCells === 0 && errorCount === 0) {
+      lockField();
+    }
   }
 });
 

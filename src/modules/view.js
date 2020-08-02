@@ -19,8 +19,6 @@ function toggleHighlightedCell(element) {
   const highlightedCellsLength = document.querySelectorAll('.cell-highlighted')
     .length;
 
-  console.log(highlightedCells[0]);
-
   if (element.classList.contains('cell-highlighted')) {
     toggleClass(element, 'cell-highlighted');
     return;
@@ -56,6 +54,19 @@ function viewNewBoard(board) {
 function viewSolvedBoard(board) {
   setValues(board);
   clearStylesAll();
+  lockField();
+}
+
+function lockField() {
+  let cellGiven = Array.from(document.querySelectorAll('.cell-given'));
+  cellGiven.forEach((e) => {
+    removeClassName(e, 'cell-given');
+  });
+
+  let cells = Array.from(document.querySelectorAll('.cell'));
+  cells.forEach((e) => {
+    addClassName(e, 'cell-given');
+  });
 }
 
 function clearStylesAll() {
@@ -75,6 +86,16 @@ function clearStylesAll() {
   });
   cellError.forEach((e) => {
     removeClassName(e, 'cell-error');
+  });
+}
+
+function clearStyle(className) {
+  let selector = '.' + className;
+
+  let nodeL = Array.from(document.querySelectorAll(selector));
+
+  nodeL.forEach((e) => {
+    removeClassName(e, className);
   });
 }
 
@@ -156,18 +177,19 @@ function countEmptyCells() {
 }
 
 function displayErrors(errorIDs) {
-  clearStylesAll();
+  clearStyle('cell-error');
   for (let k = 0; k < errorIDs[0].length; k++) {
     let row = IDs[errorIDs[0][k]];
     let column = IDs[errorIDs[1][k]];
     let idRaw = [row, '_', column];
     let id = idRaw.join('');
-    document.getElementById(id).classList.toggle('cell-error');
+    document.getElementById(id).classList.add('cell-error');
   }
 }
 
 function getErrors() {
-  return Array.from(document.querySelectorAll('.cell-error'));
+  let errorDivs = Array.from(document.querySelectorAll('.cell-error'));
+  return errorDivs.length;
 }
 
 /* --------------------Tests-------------------- */
@@ -185,4 +207,5 @@ export {
   countEmptyCells,
   displayErrors,
   getErrors,
+  lockField,
 };

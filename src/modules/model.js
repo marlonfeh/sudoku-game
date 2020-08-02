@@ -271,9 +271,8 @@ function generateBoard() {
   }
   IDs = [[], []];
 
-  //!!!Build in parameter to choose difficulty
   let board = game;
-  let difficulty = 3;
+  let difficulty = 2;
 
   //Set random elements for new board
   board = setRandomElements(board);
@@ -287,9 +286,6 @@ function generateBoard() {
 
   game = board;
 
-  console.log('Game');
-  printBoard(game);
-
   return game;
 }
 
@@ -300,7 +296,6 @@ function setRandomElements(board) {
   for (let i = 0; i < 9; i++) {
     board[0][i] = getRandomNumberArr(numbersOne);
     numbersOne = deleteElementFromArrByValue(numbersOne, board[0][i]);
-    console.log('numbers', numbersOne);
   }
 
   //Get Random Values for Row 2
@@ -334,7 +329,6 @@ function row2(board) {
     if (possibilities.length > 0) {
       board[1][i] = getRandomNumberArr(possibilities);
     } else {
-      console.log('board', 1, i, 'is 0');
       row2(board);
     }
   }
@@ -363,7 +357,6 @@ function diagonal(board) {
     if (possibilities.length > 0) {
       board[i][i] = getRandomNumberArr(possibilities);
     } else {
-      console.log('board', i, i, 'is 0');
       diagonal(board);
     }
   }
@@ -458,16 +451,16 @@ function deleteID(modelID) {
   }
 }
 
-function isValid() {
-  //Generiere possibilities für alle eingetragenen nummern
-  //wenn 0, dann error
-  console.log(IDs[0].length);
-  console.log(IDs);
+function resetID() {
+  IDs = [[], []];
+}
 
+function isValid() {
   let notValid = [[], []];
 
+  console.log(notValid);
+
   let solvedBoard = getSolvedBoard(solvedBoardTemplate);
-  console.log(solvedBoard);
 
   for (let k = 0; k < IDs[0].length; k++) {
     let r = IDs[0][k];
@@ -479,11 +472,10 @@ function isValid() {
       notValid[1].push(c);
     }
   }
+  //IDs = [[], []];
+  console.log(notValid);
   return notValid;
-  //return true or false
 }
-
-//If all Fields filled run checkSolved Functions and highlight any errors. If there arent any, highlight every cell in green
 
 /*
 "easy":         62
@@ -506,4 +498,5 @@ export {
   insertNewNumber,
   saveID,
   deleteID,
+  resetID,
 };
