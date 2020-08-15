@@ -272,7 +272,7 @@ function generateBoard() {
   IDs = [[], []];
 
   let board = game;
-  let difficulty = 35;
+  let difficulty = 3;
 
   //Set random elements for new board
   board = setRandomElements(board);
