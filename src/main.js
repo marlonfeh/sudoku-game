@@ -1,5 +1,7 @@
 import tachyons from 'tachyons';
 import {
+  getDifficulty,
+  changeDifficulty,
   toggleHighlightedCell,
   viewNewBoard,
   viewSolvedBoard,
@@ -25,12 +27,14 @@ import {
 
 const newGameBtn = document.getElementById('new-game');
 const solveGameBtn = document.getElementById('solve-game');
+const difficultyBtn = document.getElementById('change-difficulty');
 const gameField = document.getElementById('game');
 
 /* --------------------Functions-------------------- */
 
 function init() {
-  let puzzle = generateBoard();
+  let difficulty = getDifficulty();
+  let puzzle = generateBoard(difficulty);
   viewNewBoard(puzzle);
 }
 
@@ -39,7 +43,8 @@ function init() {
 // Listen to all clicks on div.game
 newGameBtn.addEventListener('click', (e) => {
   console.log('new game!');
-  let puzzle = generateBoard();
+  let difficulty = getDifficulty();
+  let puzzle = generateBoard(difficulty);
   viewNewBoard(puzzle);
 });
 
@@ -47,6 +52,11 @@ solveGameBtn.addEventListener('click', (e) => {
   console.log('solve game!');
   let puzzle = getSolvedBoard();
   viewSolvedBoard(puzzle);
+});
+
+difficultyBtn.addEventListener('click', (e) => {
+  console.log('Change Difficulty!');
+  changeDifficulty();
 });
 
 gameField.addEventListener(

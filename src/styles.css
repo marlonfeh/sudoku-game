@@ -10,6 +10,11 @@
   max-width: 600px;
 }
 
+.button-div {
+  display: flex;
+  align-items: center;
+}
+
 .new-btn:hover {
   color: white;
   background-color: var(--blue);
@@ -20,6 +25,22 @@
   color: white;
   background-color: var(--red);
   border-color: var(--red);
+}
+
+.difficulty-btn {
+  color: var(--green);
+}
+
+.difficulty-btn:hover {
+  color: white;
+  background-color: var(--green);
+  border-color: var(--green);
+}
+
+.v-line {
+  width: 2px;
+  height: 55px;
+  border-right: solid 1px black;
 }
 
 .grid-container {

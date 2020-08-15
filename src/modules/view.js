@@ -14,6 +14,57 @@ let IDs = {
 
 /* --------------------Functions-------------------- */
 
+function changeDifficulty() {
+  const difficultyBtn = document.getElementById('change-difficulty');
+  console.log(difficultyBtn.innerHTML);
+  let difficulty;
+  switch (difficultyBtn.innerHTML) {
+    case 'Easy':
+      difficulty = 'Medium';
+      break;
+    case 'Medium':
+      difficulty = 'Hard';
+      break;
+    case 'Hard':
+      difficulty = 'Very Hard';
+      break;
+    case 'Very Hard':
+      difficulty = 'Insane';
+      break;
+    case 'Insane':
+      difficulty = 'Inhuman';
+      break;
+    case 'Inhuman':
+      difficulty = 'Easy';
+      break;
+    default:
+      console.log('Something is wrong');
+  }
+  difficultyBtn.innerHTML = difficulty;
+}
+
+function getDifficulty() {
+  const difficultyBtn = document.getElementById('change-difficulty');
+  console.log(difficultyBtn.innerHTML);
+
+  switch (difficultyBtn.innerHTML) {
+    case 'Easy':
+      return 19;
+    case 'Medium':
+      return 28;
+    case 'Hard':
+      return 37;
+    case 'Very Hard':
+      return 46;
+    case 'Insane':
+      return 55;
+    case 'Inhuman':
+      return 64;
+    default:
+      console.log('Something is wrong');
+  }
+}
+
 function toggleHighlightedCell(element) {
   const highlightedCells = document.querySelectorAll('.cell-highlighted');
   const highlightedCellsLength = document.querySelectorAll('.cell-highlighted')
@@ -197,6 +248,8 @@ function getErrors() {
 /* --------------------Export-------------------- */
 
 export {
+  changeDifficulty,
+  getDifficulty,
   toggleHighlightedCell,
   viewNewBoard,
   viewSolvedBoard,

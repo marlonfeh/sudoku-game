@@ -261,7 +261,7 @@ function solve(board) {
   return board;
 }
 
-function generateBoard() {
+function generateBoard(difficulty) {
   //Reset game
   for (let k = 0; k < 9; k++) {
     for (let n = 0; n < 9; n++) {
@@ -272,7 +272,6 @@ function generateBoard() {
   IDs = [[], []];
 
   let board = game;
-  let difficulty = 3;
 
   //Set random elements for new board
   board = setRandomElements(board);
