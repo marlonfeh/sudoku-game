@@ -29,6 +29,8 @@
 
 .difficulty-btn {
   color: var(--green);
+  width: 100px;
+  text-align: center;
 }
 
 .difficulty-btn:hover {
