@@ -4,6 +4,7 @@
   --green: #19a974;
   --light-red: #ff725c;
   --near-white: #eeeeee;
+  --purple: #5e2ca5;
 }
 
 #container {
@@ -28,7 +29,6 @@
 }
 
 .difficulty-btn {
-  color: var(--green);
   width: 100px;
   text-align: center;
 }
@@ -37,6 +37,16 @@
   color: white;
   background-color: var(--green);
   border-color: var(--green);
+}
+
+.tmp-btn-width {
+  width: 118px;
+}
+
+.tmp-btn-inactive:hover {
+  color: white;
+  background-color: var(--purple);
+  border-color: var(--purple);
 }
 
 .v-line {

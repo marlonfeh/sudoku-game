@@ -65,6 +65,25 @@ function getDifficulty() {
   }
 }
 
+function toggleTMPBtn() {
+  //If inactive -> remove (tmp-btn-inactive, purple) and add (bg-purple, white)
+  //Change innerhtml to actived
+
+  const tmpBtn = document.getElementById('tmp-mode');
+  console.log(tmpBtn);
+
+  toggleClass(tmpBtn, 'tmp-btn-inactive');
+  toggleClass(tmpBtn, 'purple');
+  toggleClass(tmpBtn, 'bg-purple');
+  toggleClass(tmpBtn, 'white');
+
+  if (tmpBtn.innerHTML === 'TMP Inactive') {
+    tmpBtn.innerHTML = 'TMP Active';
+  } else {
+    tmpBtn.innerHTML = 'TMP Inactive';
+  }
+}
+
 function toggleHighlightedCell(element) {
   const highlightedCells = document.querySelectorAll('.cell-highlighted');
   const highlightedCellsLength = document.querySelectorAll('.cell-highlighted')
@@ -250,6 +269,7 @@ function getErrors() {
 export {
   changeDifficulty,
   getDifficulty,
+  toggleTMPBtn,
   toggleHighlightedCell,
   viewNewBoard,
   viewSolvedBoard,

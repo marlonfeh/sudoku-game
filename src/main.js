@@ -2,6 +2,7 @@ import tachyons from 'tachyons';
 import {
   getDifficulty,
   changeDifficulty,
+  toggleTMPBtn,
   toggleHighlightedCell,
   viewNewBoard,
   viewSolvedBoard,
@@ -28,6 +29,7 @@ import {
 const newGameBtn = document.getElementById('new-game');
 const solveGameBtn = document.getElementById('solve-game');
 const difficultyBtn = document.getElementById('change-difficulty');
+const tmpBtn = document.getElementById('tmp-mode');
 const gameField = document.getElementById('game');
 
 /* --------------------Functions-------------------- */
@@ -57,6 +59,11 @@ solveGameBtn.addEventListener('click', (e) => {
 difficultyBtn.addEventListener('click', (e) => {
   console.log('Change Difficulty!');
   changeDifficulty();
+});
+
+tmpBtn.addEventListener('click', (e) => {
+  console.log('TMP Mode!');
+  toggleTMPBtn();
 });
 
 gameField.addEventListener(
