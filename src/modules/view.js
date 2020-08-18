@@ -84,6 +84,17 @@ function toggleTMPBtn() {
   }
 }
 
+function isTMP() {
+  const tmpBtn = document.getElementById('tmp-mode');
+  if (tmpBtn.innerHTML === 'TMP Active') {
+    console.log('true');
+    return true;
+  } else {
+    console.log('false');
+    return false;
+  }
+}
+
 function toggleHighlightedCell(element) {
   const highlightedCells = document.querySelectorAll('.cell-highlighted');
   const highlightedCellsLength = document.querySelectorAll('.cell-highlighted')
@@ -217,13 +228,13 @@ function getActive() {
   }
 }
 
-function displayNumber(element, num) {
+function displayNumber(element, num, tmpMode) {
   if (num === '0') {
     element.innerHTML = '';
     addClassName(element, 'cell-empty');
   } else {
     element.innerHTML = num;
-    removeClassName(element, 'cell-empty');
+    if (tmpMode) removeClassName(element, 'cell-empty');
   }
 }
 
@@ -270,6 +281,7 @@ export {
   changeDifficulty,
   getDifficulty,
   toggleTMPBtn,
+  isTMP,
   toggleHighlightedCell,
   viewNewBoard,
   viewSolvedBoard,

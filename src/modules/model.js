@@ -280,8 +280,10 @@ function generateBoard(difficulty) {
   //Solve new board
   board = solve(board);
 
+  let dummyVar = 3;
+
   //Delete specific amount of numbers
-  board = removeNumbersFromBoard(board, difficulty);
+  board = removeNumbersFromBoard(board, dummyVar);
 
   game = board;
 

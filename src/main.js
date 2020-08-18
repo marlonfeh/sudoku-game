@@ -3,6 +3,7 @@ import {
   getDifficulty,
   changeDifficulty,
   toggleTMPBtn,
+  isTMP,
   toggleHighlightedCell,
   viewNewBoard,
   viewSolvedBoard,
@@ -79,8 +80,11 @@ gameField.addEventListener(
 );
 
 document.addEventListener('keydown', function (e) {
+  //Replace dummyVar in function generateBoard with difficulty
+
   //Check for active div
   let activeDiv = isActive();
+  let activeTMP = isTMP();
 
   if (activeDiv !== true) return;
 
@@ -89,41 +93,47 @@ document.addEventListener('keydown', function (e) {
     (e.keyCode >= 48 && e.keyCode <= 57) ||
     (e.keyCode >= 96 && e.keyCode <= 105)
   ) {
-    //Get relevant Element and model ID
-    let element = getActive();
-    let modelID = getModelID(element);
+    if (!activeTMP) {
+      //Get relevant Element and model ID
+      let element = getActive();
+      let modelID = getModelID(element);
 
-    //Get Number into model
-    insertNewNumber(modelID, e.key);
+      //Get Number into model
+      insertNewNumber(modelID, e.key);
 
-    if (e.key !== '0') {
-      saveID(modelID);
+      if (e.key !== '0') {
+        saveID(modelID);
+      } else {
+        deleteID(modelID);
+      }
+
+      //Display Number in view
+      displayNumber(element, e.key, true);
+
+      //check validity if model is completly filled
+      let emptyCells = countEmptyCells();
+
+      let notValid = [];
+
+      //Check IDs in model.js
+
+      if (emptyCells === 0) {
+        notValid = isValid();
+      }
+
+      if (notValid.length !== 0) {
+        displayErrors(notValid);
+      }
+
+      let errorCount = getErrors();
+
+      if (emptyCells === 0 && errorCount === 0) {
+        lockField();
+      }
     } else {
-      deleteID(modelID);
-    }
-
-    //Display Number in view
-    displayNumber(element, e.key);
-
-    //check validity if model is completly filled
-    let emptyCells = countEmptyCells();
-
-    let notValid = [];
-
-    //Check IDs in model.js
-
-    if (emptyCells === 0) {
-      notValid = isValid();
-    }
-
-    if (notValid.length !== 0) {
-      displayErrors(notValid);
-    }
-
-    let errorCount = getErrors();
-
-    if (emptyCells === 0 && errorCount === 0) {
-      lockField();
+      let element = getActive();
+      //Display Number in view
+      displayNumber(element, e.key, false);
     }
   }
 });
