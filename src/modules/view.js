@@ -87,10 +87,8 @@ function toggleTMPBtn() {
 function isTMP() {
   const tmpBtn = document.getElementById('tmp-mode');
   if (tmpBtn.innerHTML === 'TMP Active') {
-    console.log('true');
     return true;
   } else {
-    console.log('false');
     return false;
   }
 }
@@ -229,9 +227,13 @@ function getActive() {
 }
 
 function displayNumber(element, num, tmpMode) {
+  let errorDivs = Array.from(document.querySelectorAll('.cell-error'));
   if (num === '0') {
+    //If errorDivs > 0 than the game finished check has already been set out, therefore a deletion of a number is not possible anymore, only the replacement by another number
+    if (errorDivs.length > 0) return;
     element.innerHTML = '';
     addClassName(element, 'cell-empty');
+    removeClassName(element, 'cell-error');
   } else {
     element.innerHTML = num;
     if (tmpMode) removeClassName(element, 'cell-empty');
