@@ -80,8 +80,6 @@ gameField.addEventListener(
 );
 
 document.addEventListener('keydown', function (e) {
-  //Replace dummyVar in function generateBoard with difficulty
-
   //Check for active div
   let activeDiv = isActive();
   let activeTMP = isTMP();

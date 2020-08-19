@@ -280,10 +280,11 @@ function generateBoard(difficulty) {
   //Solve new board
   board = solve(board);
 
-  let dummyVar = 3;
+  //Can be used instead of "difficulty" to test features regarding the solving of sudokus
+  //let dummyVar = 3;
 
   //Delete specific amount of numbers
-  board = removeNumbersFromBoard(board, dummyVar);
+  board = removeNumbersFromBoard(board, difficulty);
 
   game = board;
 
