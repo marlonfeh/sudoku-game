@@ -15,6 +15,9 @@ import {
   displayErrors,
   getErrors,
   lockField,
+  isMultipleTMP,
+  displayNumberTMP,
+  deleteTMPDivs,
 } from './modules/view.js';
 import {
   generateBoard,
@@ -86,14 +89,18 @@ document.addEventListener('keydown', function (e) {
 
   if (activeDiv !== true) return;
 
+  //Convert backspace into a zero
+
   //Check for number
   if (
     (e.keyCode >= 48 && e.keyCode <= 57) ||
     (e.keyCode >= 96 && e.keyCode <= 105)
   ) {
+    let element = getActive();
+    let multipleTMP = isMultipleTMP(element);
     if (!activeTMP) {
       //Get relevant Element and model ID
-      let element = getActive();
+      //let element = getActive();
       let modelID = getModelID(element);
 
       //Get Number into model
@@ -105,8 +112,11 @@ document.addEventListener('keydown', function (e) {
         deleteID(modelID);
       }
 
+      //If multipleTMP structure is given it has to be deleted first -  STILL TO IMPLEMENT
+      if (multipleTMP) deleteTMPDivs(element, '');
+
       //Display Number in view
-      displayNumber(element, e.key, true);
+      displayNumber(element, e.key, false);
 
       //check validity if model is completly filled
       let emptyCells = countEmptyCells();
@@ -128,10 +138,13 @@ document.addEventListener('keydown', function (e) {
       if (emptyCells === 0 && errorCount === 0) {
         lockField();
       }
-    } else {
-      let element = getActive();
-      //Display Number in view
-      displayNumber(element, e.key, false);
+    }
+    if (activeTMP) {
+      if (multipleTMP) {
+        displayNumberTMP(element, e.key, true);
+      } else if (!multipleTMP) {
+        displayNumberTMP(element, e.key, false);
+      }
     }
   }
 });

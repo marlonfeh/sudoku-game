@@ -112,3 +112,24 @@
 .cell-highlighted {
   background-color: var(--green);
 }
+
+.tmp-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+}
+
+.tmp-grid-one {
+  grid-area: 1 / 1 / 2 / 2;
+}
+.tmp-grid-two {
+  grid-area: 1 / 2 / 2 / 3;
+}
+.tmp-grid-three {
+  grid-area: 2 / 1 / 3 / 2;
+}
+.tmp-grid-four {
+  grid-area: 2 / 2 / 3 / 3;
+}
