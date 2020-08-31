@@ -272,9 +272,6 @@ function isCellEmpty(element) {
 }
 
 function displayNumberTMP(element, num, multipleTMP) {
-  //check for cell-empty -> if not add it
-  //multipleTMP is either true or false -> if true add number in the next empty slot -> if false add it as single number
-
   let isEmpty = isCellEmpty(element);
   if (!multipleTMP) {
     if (num === '0') {
@@ -282,7 +279,11 @@ function displayNumberTMP(element, num, multipleTMP) {
       addClassName(element, 'cell-empty');
       removeClassName(element, 'cell-error');
     } else {
-      if (isEmpty && getContentLength(element) === 1) {
+      if (
+        isEmpty &&
+        getContentLength(element) === 1 &&
+        element.innerHTML !== num
+      ) {
         createTMPDivs(element, num);
       } else {
         element.innerHTML = num;
@@ -306,6 +307,11 @@ function displayNumberTMP(element, num, multipleTMP) {
         }
       }
     } else {
+      for (let i = 0; i < tmpItems.length; i++) {
+        if (tmpItems[i].innerHTML === num) {
+          return;
+        }
+      }
       //Look for the next possible slot
       for (let i = 0; i < tmpItems.length; i++) {
         if (getContentLength(tmpItems[i]) === 0) {
