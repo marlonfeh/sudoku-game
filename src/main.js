@@ -1,4 +1,3 @@
-import tachyons from 'tachyons';
 import {
   getDifficulty,
   changeDifficulty,
